@@ -1,6 +1,7 @@
 # flutter_social
 
-A new Flutter project.
+A simple Flutter Instagram Clone, built with the purpose of learning to build complex Flutter apps. 
+Following this -> [Tutorial](https://www.youtube.com/watch?v=mEPm9w5QlJM&list=WL&index=30)
 
 ## Getting Started
 
