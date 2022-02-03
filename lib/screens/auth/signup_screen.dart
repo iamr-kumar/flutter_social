@@ -2,6 +2,9 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_social/resources/auth_methods.dart';
+import 'package:flutter_social/responsive/mobile_screen_layout.dart';
+import 'package:flutter_social/responsive/responsive_layout.dart';
+import 'package:flutter_social/responsive/web_screen_layout.dart';
 import 'package:flutter_social/screens/auth/login_screen.dart';
 import 'package:flutter_social/utils/colors.dart';
 import 'package:flutter_social/utils/utils.dart';
@@ -63,7 +66,10 @@ class _SignupScreenState extends State<SignupScreen> {
     if (res != "success") {
       showSnackbar(context, res);
     } else {
-      showSnackbar(context, 'Successfully Signed Up');
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+              webScreenLayout: WebScreenLayout(),
+              mobileScreenLayout: MobileScreenLayout())));
     }
   }
 

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_social/resources/auth_methods.dart';
+import 'package:flutter_social/responsive/mobile_screen_layout.dart';
+import 'package:flutter_social/responsive/responsive_layout.dart';
+import 'package:flutter_social/responsive/web_screen_layout.dart';
 import 'package:flutter_social/screens/auth/signup_screen.dart';
 import 'package:flutter_social/utils/colors.dart';
 import 'package:flutter_social/utils/utils.dart';
@@ -35,7 +38,10 @@ class _LoginScreenState extends State<LoginScreen> {
       _isLoading = false;
     });
     if (res == 'success') {
-      showSnackbar(context, 'Logged you in!');
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+              webScreenLayout: WebScreenLayout(),
+              mobileScreenLayout: MobileScreenLayout())));
     } else {
       showSnackbar(context, res);
     }
