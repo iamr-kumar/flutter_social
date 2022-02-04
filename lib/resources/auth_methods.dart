@@ -2,11 +2,20 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_social/models/User.model.dart' as model;
 import 'package:flutter_social/resources/storage_methods.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<model.User> getUserDetails() async {
+    User currentUser = _auth.currentUser!;
+    DocumentSnapshot snap =
+        await _firestore.collection('users').doc(currentUser.uid).get();
+    return model.User.fromSnap(snap);
+  }
+
   // sign up user
   Future<String> signupUser({
     required String email,
@@ -34,15 +43,19 @@ class AuthMethods {
               .uploadImage('profilePics', profileImage, false);
         }
         // add user to firestore
-        await _firestore.collection('users').doc(credentials.user!.uid).set({
-          'username': username,
-          'uid': credentials.user!.uid,
-          'bio': bio,
-          'email': email,
-          'photoUrl': photoUrl,
-          'followers': [],
-          'following': []
-        });
+        model.User user = model.User(
+            username: username,
+            uid: credentials.user!.uid,
+            bio: bio,
+            email: email,
+            photoUrl: photoUrl,
+            followers: [],
+            following: []);
+
+        await _firestore
+            .collection('users')
+            .doc(credentials.user!.uid)
+            .set(user.toJson());
         res = "success";
       }
     } on FirebaseAuthException catch (err) {
