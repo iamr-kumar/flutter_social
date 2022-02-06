@@ -102,4 +102,8 @@ class AuthMethods {
     }
     return res;
   }
+
+  void logoutUser() {
+    _auth.signOut();
+  }
 }
