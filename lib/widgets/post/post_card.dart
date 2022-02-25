@@ -41,11 +41,11 @@ class _PostCardState extends State<PostCard> {
           // IMAGE SECTION
           GestureDetector(
             onDoubleTap: () async {
-              await FirestoreMethods().likePost(
-                  widget.snap['postId'], user.uid, widget.snap['likes']);
               setState(() {
                 _isLikeAnimating = true;
               });
+              await FirestoreMethods().likePost(
+                  widget.snap['postId'], user.uid, widget.snap['likes']);
             },
             child: Stack(
               alignment: Alignment.center,
@@ -69,7 +69,7 @@ class _PostCardState extends State<PostCard> {
                       });
                     },
                     child: const Icon(Icons.favorite,
-                        color: Colors.white, size: 130),
+                        color: Colors.white, size: 120),
                   ),
                 )
               ],
