@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_social/resources/firestore_methods.dart';
 
 class PostDialog extends StatelessWidget {
-  const PostDialog({Key? key}) : super(key: key);
+  final String postId;
+  const PostDialog({Key? key, required this.postId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +13,10 @@ class PostDialog extends StatelessWidget {
         shrinkWrap: true,
         children: ['Delete']
             .map((e) => InkWell(
-                onTap: () {},
+                onTap: () async {
+                  await FirestoreMethods().deletePost(postId);
+                  Navigator.pop(context);
+                },
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 12, horizontal: 16),

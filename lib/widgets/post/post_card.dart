@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_social/models/User.model.dart';
 import 'package:flutter_social/providers/user.provider.dart';
 import 'package:flutter_social/resources/firestore_methods.dart';
+import 'package:flutter_social/screens/post/comments_screen.dart';
 import 'package:flutter_social/utils/colors.dart';
 import 'package:flutter_social/widgets/post/like_animation.dart';
 import 'package:flutter_social/widgets/post/post_description.dart';
@@ -36,6 +37,8 @@ class _PostCardState extends State<PostCard> {
               child: PostHeader(
                 username: widget.snap['username'],
                 profileImage: widget.snap['profImage'],
+                postId: widget.snap['postId'],
+                uid: widget.snap['uid'],
               )),
 
           // IMAGE SECTION
@@ -92,7 +95,12 @@ class _PostCardState extends State<PostCard> {
                         : const Icon(Icons.favorite_border)),
               ),
               IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.comment_outlined)),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            CommentsScreen(snap: widget.snap)));
+                  },
+                  icon: const Icon(Icons.comment_outlined)),
               IconButton(onPressed: () {}, icon: const Icon(Icons.send)),
               Expanded(
                   child: Align(
@@ -105,11 +113,12 @@ class _PostCardState extends State<PostCard> {
 
           // DESCRIPTION
           PostDescription(
-            likes: widget.snap['likes'].length,
-            description: widget.snap['description'],
-            username: widget.snap['username'],
-            date: widget.snap['datePublished'].toDate(),
-          )
+              likes: widget.snap['likes'].length,
+              description: widget.snap['description'],
+              username: widget.snap['username'],
+              date: widget.snap['datePublished'].toDate(),
+              postId: widget.snap['postId'],
+              snap: widget.snap)
         ],
       ),
     );
