@@ -6,8 +6,8 @@ import 'package:flutter_social/screens/search/search_screen.dart';
 const webScreenSize = 600;
 
 const homeScreenItems = [
-  SearchScreen(),
   PostScreen(),
+  SearchScreen(),
   AddPostScreen(),
   Text('notifications'),
   Text('profile'),
